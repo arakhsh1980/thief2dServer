@@ -11,8 +11,8 @@ namespace thief2dServer.Models.blocks
     {
         static Theif2dDataDBContext()
         {
-            //Database.SetInitializer<Theif2dDataDBContext>(new CreateDatabaseIfNotExists<Theif2dDataDBContext>());
-            Database.SetInitializer<Theif2dDataDBContext>(new DropCreateDatabaseAlways<Theif2dDataDBContext>());
+            Database.SetInitializer<Theif2dDataDBContext>(new CreateDatabaseIfNotExists<Theif2dDataDBContext>());
+            //Database.SetInitializer<Theif2dDataDBContext>(new DropCreateDatabaseAlways<Theif2dDataDBContext>());
            
             
         }

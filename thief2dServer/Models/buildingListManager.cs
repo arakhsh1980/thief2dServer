@@ -102,5 +102,16 @@ namespace thief2dServer.Models
         }
 
 
+
+        public void LoadPlayersAtStart()
+        {           
+            Theif2dDataDBContext dataBase = new Theif2dDataDBContext();
+            PlayerForDataBase[] allBuildings = dataBase.Buildings.ToArray();
+            for (int i = 0; i < allBuildings.Length; i++)
+            {
+                AddOrUpdateBuilding(allBuildings[i]);
+            }            
+        }
+
     }
 }
