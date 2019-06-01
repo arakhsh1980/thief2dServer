@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "thief2dServer", "thief2dServer\thief2dServer.csproj", "{AB85DDED-AEB4-43CA-B96D-7CC91338E34E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB85DDED-AEB4-43CA-B96D-7CC91338E34E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB85DDED-AEB4-43CA-B96D-7CC91338E34E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB85DDED-AEB4-43CA-B96D-7CC91338E34E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB85DDED-AEB4-43CA-B96D-7CC91338E34E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D50A3261-C595-47D6-A790-58B51BCD2DBF}
+	EndGlobalSection
+EndGlobal
