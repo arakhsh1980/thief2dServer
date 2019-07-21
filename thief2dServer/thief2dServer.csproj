@@ -150,7 +150,7 @@
     <Compile Include="Models\blocks\PlayerForDataBase.cs" />
     <Compile Include="Models\blocks\PlayerForSerialize.cs" />
     <Compile Include="Models\blocks\DataBase.cs" />
-    <Compile Include="Models\buildingListManager.cs" />
+    <Compile Include="Models\PlayerListManager.cs" />
     <Compile Include="Models\utilities\Constants.cs" />
     <Compile Include="Models\utilities\ErrorSystem.cs" />
     <Compile Include="Models\utilities\LogSystem.cs" />

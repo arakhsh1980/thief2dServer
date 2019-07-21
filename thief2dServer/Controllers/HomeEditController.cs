@@ -21,14 +21,15 @@ namespace thief2dServer.Controllers
             string id = Request.Form["PlayerId"];
             string BulidngString = Request.Form["BulidngString"];
             Theif2dDataDBContext dataBase = new Theif2dDataDBContext();
-            PlayerForDataBase buildingData = dataBase.Buildings.Find(id);
+            PlayerForDataBase PlayerData = dataBase.Buildings.Find(id);
            
 
-            if (buildingData != null)
+            if (PlayerData != null)
             {
-                buildingData.buildingCode = BulidngString;
-                dataBase.Entry(buildingData).State = EntityState.Modified;
+                PlayerData.buildingCode = BulidngString;
+                dataBase.Entry(PlayerData).State = EntityState.Modified;
                 dataBase.SaveChanges();
+
                 return true.ToString();
             }
             else
@@ -41,15 +42,19 @@ namespace thief2dServer.Controllers
         public string AttackRequst(FormCollection collection)
         {
             string id = Request.Form["PlayerId"];
-            string enemyId = new buildingListManager().NextIdForAtack(id);
+            string enemyId = new PlayerListManager().NextIdForAtack(id);
             if (enemyId != null)
             {
                 Theif2dDataDBContext dataBase = new Theif2dDataDBContext();
-                PlayerForDataBase buildingData = dataBase.Buildings.Find(id);
-                PlayerForSerialize buildingForSerialize = new Utlities().ConvertBuildingDataBaseToSerialize(buildingData);
-                LogSystem.AddPlayerLog(id, "player" + id.ToString() + " attacked " + buildingData.ID + " ID");
-                string uu = new JavaScriptSerializer().Serialize(buildingForSerialize);
-                return uu;
+                PlayerForDataBase PlayerData = dataBase.Buildings.Find(enemyId);
+                if(PlayerData != null)
+                {
+                    PlayerForSerialize playerDataForSerialize = new Utlities().ConvertBuildingDataBaseToSerialize(PlayerData);
+                    LogSystem.AddPlayerLog(id, "player" + id.ToString() + " attacked " + PlayerData.ID + " ID");
+                    string uu = new JavaScriptSerializer().Serialize(playerDataForSerialize);
+                    return uu;
+                }
+                return false.ToString();
             }
             else
             {

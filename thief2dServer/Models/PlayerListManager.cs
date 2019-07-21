@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using thief2dServer.Models.blocks;
+using thief2dServer.Models.utilities;
 
 namespace thief2dServer.Models
 {
-    class Building
+    class playerData
     {
-        public Building()
+        public playerData()
         {
 
             coin = 100;
@@ -42,32 +43,47 @@ namespace thief2dServer.Models
         }
 
     }
-    public class buildingListManager
+    public class PlayerListManager
     {
-        private static List<Building> buildingList = new List<Building>();
+        private static List<playerData> playersList = new List<playerData>();
                 
 
-        public void AddOrUpdateBuilding(PlayerForDataBase newB)
+        public void UpdatePlayerInfo(PlayerForDataBase newB)
         {            
             bool isFind = false;
-            foreach (Building bForD in buildingList) if (bForD.ID == newB.ID && !isFind)
+            foreach (playerData bForD in playersList) if (bForD.ID == newB.ID && !isFind)
                 {
                     bForD.addingCoinRate = newB.addingCoinRate;
                     bForD.addingElixirRate = newB.addingElixirRate;
                     bForD.coin = newB.coin;
                     bForD.elixir = newB.elixir;
                     bForD.lastTimeVariableUpdate = newB.lastTimeVariableUpdate;
+                    bForD.remaningShialdInSecond = newB.remaningShialdInSecond;
                     isFind = true;
                 }
             if (!isFind)
             {
-
-                Building newbuilding = ConvertBuildingDataBaseVersionToBuilding(newB);
-                buildingList.Add(newbuilding);
+                ErrorSystem.AddBigError("playerListManager.UpdatePlayerInfo. player not find");
             }
         }
 
-       
+
+        public void AddPlayerInfo(PlayerForDataBase newB)
+        {
+            bool isFind = false;
+            foreach (playerData bForD in playersList) if (bForD.ID == newB.ID && !isFind) { isFind = true; }
+            if (isFind)
+            {
+                ErrorSystem.AddBigError("playerListManager.AddPlayerInfo. player is in the data base");
+            }
+            else
+            {
+                playerData newbuilding = ConvertBuildingDataBaseVersionToBuilding(newB);
+                playersList.Add(newbuilding);
+            }
+               
+        }
+
 
 
 
@@ -75,7 +91,7 @@ namespace thief2dServer.Models
         {           
             string nextforA = null;
             int maxCoin = 0;
-            foreach (Building bb in buildingList) 
+            foreach (playerData bb in playersList) 
             {
                 bb.UpdatePropertyByTime();
                 if (maxCoin < bb.coin && bb.remaningShialdInSecond == 0 && bb.ID != attaker)
@@ -89,9 +105,9 @@ namespace thief2dServer.Models
 
 
 
-        Building ConvertBuildingDataBaseVersionToBuilding(PlayerForDataBase newB)
+        playerData ConvertBuildingDataBaseVersionToBuilding(PlayerForDataBase newB)
         {
-            Building bForD = new Building();
+            playerData bForD = new playerData();
             bForD.addingCoinRate = newB.addingCoinRate;
             bForD.addingElixirRate = newB.addingElixirRate;
             bForD.coin = newB.coin;
@@ -109,7 +125,7 @@ namespace thief2dServer.Models
             PlayerForDataBase[] allBuildings = dataBase.Buildings.ToArray();
             for (int i = 0; i < allBuildings.Length; i++)
             {
-                AddOrUpdateBuilding(allBuildings[i]);
+                AddPlayerInfo(allBuildings[i]);
             }            
         }
 

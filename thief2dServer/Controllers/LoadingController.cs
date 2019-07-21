@@ -21,28 +21,30 @@ namespace thief2dServer.Controllers
         {
             string id = Request.Form["PlayerId"];
             Theif2dDataDBContext dataBase = new Theif2dDataDBContext();
-            PlayerForDataBase buildingData = dataBase.Buildings.Find(id);            
-            if (buildingData == null)
+            PlayerForDataBase PlayerData = dataBase.Buildings.Find(id);            
+            if (PlayerData == null)
             {
                 AddNew.WaitOne();
-                buildingData = new Utlities().returnDefultBulding();
+                PlayerData = new Utlities().returnDefultBulding();
                 string ss = new Random().NextDouble().ToString();
                 int index = dataBase.Buildings.Count<PlayerForDataBase>() + 1;
-                buildingData.ID = index.ToString() + ss;
+                PlayerData.ID = index.ToString() + ss;
                 
-                dataBase.Buildings.Add(buildingData);
+                dataBase.Buildings.Add(PlayerData);
                 dataBase.SaveChanges();
                 AddNew.ReleaseMutex();
+                new PlayerListManager().AddPlayerInfo(PlayerData);
             }
             else
-            {
-                buildingData.UpdatePropertyByTime();
+            {                
+                PlayerData.UpdatePropertyByTime();
+                new PlayerListManager().UpdatePlayerInfo(PlayerData);
             }
-            new buildingListManager().AddOrUpdateBuilding(buildingData);
-            PlayerForSerialize buildingForSerialize= new Utlities().ConvertBuildingDataBaseToSerialize(buildingData);
+            
+            PlayerForSerialize buildingForSerialize= new Utlities().ConvertBuildingDataBaseToSerialize(PlayerData);
 
 
-            LogSystem.AddPlayerLog(buildingData.ID, "player" + buildingData.ID.ToString() + " added by " + buildingData.ID + " ID");
+            LogSystem.AddPlayerLog(PlayerData.ID, "player" + PlayerData.ID.ToString() + " added by " + PlayerData.ID + " ID");
             string uu = new JavaScriptSerializer().Serialize(buildingForSerialize);
             return uu;
         }

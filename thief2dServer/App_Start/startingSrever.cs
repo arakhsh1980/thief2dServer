@@ -10,7 +10,7 @@ namespace thief2dServer.App_Start
     {
         public static void StartAll()
         {
-            new buildingListManager().LoadPlayersAtStart();
+            new PlayerListManager().LoadPlayersAtStart();
         }
        
     }
