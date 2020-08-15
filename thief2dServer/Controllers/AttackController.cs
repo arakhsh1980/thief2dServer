@@ -17,6 +17,8 @@ namespace thief2dServer.Controllers
     public class AttackController : Controller
     {
         private static Mutex AddNew = new Mutex();
+        Theif2dDataDBContext dataBase = new Theif2dDataDBContext();
+
         [HttpPost]
         public string AttackResult(FormCollection collection)
         {
@@ -25,17 +27,47 @@ namespace thief2dServer.Controllers
             int gatheredCoin = Int32.Parse( Request.Form["gatheredCoin"]);
             int gatheredElixir = Int32.Parse(Request.Form["gatheredElixir"]);
 
-            Theif2dDataDBContext dataBase = new Theif2dDataDBContext();
-            PlayerForDataBase PlayerData = dataBase.Buildings.Find(id);
-            PlayerForDataBase opponentData = dataBase.Buildings.Find(opponentid);
+            
+            PlayerForDataBase PlayerData = dataBase.PlayerinDataBase.Find(id);
+            PlayerForDataBase opponentData = dataBase.PlayerinDataBase.Find(opponentid);
             if (PlayerData != null && opponentData !=null)
             {
+                PlayerData.UpdatePropertyByTime();
+                opponentData.UpdatePropertyByTime();
                 AddNew.WaitOne();
                 opponentData.coin -= gatheredCoin;
                 opponentData.elixir -= gatheredElixir;
-                opponentData.remaningShialdInSecond =Constants.shildDefultTime;
                 PlayerData.coin += gatheredCoin;
                 PlayerData.elixir += gatheredElixir;
+                dataBase.Entry(PlayerData).State = EntityState.Modified;
+                dataBase.Entry(opponentData).State = EntityState.Modified;
+                dataBase.SaveChanges();
+                AddNew.ReleaseMutex();
+                new PlayerListManager().UpdatePlayerInfo(PlayerData);
+                new PlayerListManager().UpdatePlayerInfo(opponentData);
+                return true.ToString();
+            }
+            else
+            {
+                return false.ToString();
+            }
+        }
+
+
+        [HttpPost]
+        public string AttackStarted(FormCollection collection)
+        {
+            string id = Request.Form["PlayerId"];
+            string opponentid = Request.Form["opponenId"];         
+
+            
+            PlayerForDataBase PlayerData = dataBase.PlayerinDataBase.Find(id);
+            PlayerForDataBase opponentData = dataBase.PlayerinDataBase.Find(opponentid);
+            if (PlayerData != null && opponentData != null)
+            {
+                AddNew.WaitOne();
+                PlayerData.remaningTimeToNextAttack = Constants.TimeToNextAttackDefult;
+                opponentData.remaningShialdInSecond = Constants.shildDefultTime;
                 dataBase.Entry(PlayerData).State = EntityState.Modified;
                 dataBase.Entry(opponentData).State = EntityState.Modified;
                 dataBase.SaveChanges();

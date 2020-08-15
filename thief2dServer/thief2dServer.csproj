@@ -17,7 +17,8 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress />
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -34,6 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>SecurityRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -144,14 +146,22 @@
     <Compile Include="Controllers\AttackController.cs" />
     <Compile Include="Controllers\HomeEditController.cs" />
     <Compile Include="Controllers\LoadingController.cs" />
+    <Compile Include="Controllers\MakeStoryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AssetManager.cs" />
+    <Compile Include="Models\blocks\asset.cs" />
+    <Compile Include="Models\blocks\AssetSubClasses.cs" />
     <Compile Include="Models\blocks\PlayerForDataBase.cs" />
     <Compile Include="Models\blocks\PlayerForSerialize.cs" />
     <Compile Include="Models\blocks\DataBase.cs" />
+    <Compile Include="Models\blocks\ShipForDataBase.cs" />
+    <Compile Include="Models\blocks\ShipBase.cs" />
+    <Compile Include="Models\blocks\StoryLevel.cs" />
     <Compile Include="Models\PlayerListManager.cs" />
     <Compile Include="Models\utilities\Constants.cs" />
+    <Compile Include="Models\utilities\Convertor.cs" />
     <Compile Include="Models\utilities\ErrorSystem.cs" />
     <Compile Include="Models\utilities\LogSystem.cs" />
     <Compile Include="Models\utilities\Utlities.cs" />
@@ -200,6 +210,7 @@
     <Folder Include="Views\Attack\" />
     <Folder Include="Views\HomeEdit\" />
     <Folder Include="Views\Loading\" />
+    <Folder Include="Views\MakeStory\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -235,11 +246,10 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>64306</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:64306/</IISUrl>
+          <IISUrl>http://localhost:14406/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl>http://localhost:59625/</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

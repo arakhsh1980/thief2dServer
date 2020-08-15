@@ -16,8 +16,9 @@ namespace thief2dServer.Models
             elixir = 100;
             addingCoinRate = 1;
             addingElixirRate = 1;
-            lastTimeVariableUpdate = DateTime.Now;
+            lastTimeVariableUpdate = DateTime.UtcNow.ToBinary();
             remaningShialdInSecond = 0;
+            
         }
 
 
@@ -26,12 +27,12 @@ namespace thief2dServer.Models
         public int elixir { get; set; }
         public float addingCoinRate { get; set; }
         public float addingElixirRate { get; set; }
-        public DateTime lastTimeVariableUpdate { get; set; }
+        public long lastTimeVariableUpdate { get; set; }
         public int remaningShialdInSecond { get; set; }
 
         public void UpdatePropertyByTime()
         {
-            double ff = DateTime.Now.Subtract(lastTimeVariableUpdate).TotalSeconds;
+            double ff = DateTime.Now.Subtract(DateTime.FromBinary(lastTimeVariableUpdate)).TotalSeconds;
             coin += (int)Math.Floor(addingCoinRate * ff);
             elixir += (int)Math.Floor(addingElixirRate * ff);
             if (0 < remaningShialdInSecond)
@@ -39,14 +40,18 @@ namespace thief2dServer.Models
                 remaningShialdInSecond -= (int)Math.Floor(ff);
                 if (remaningShialdInSecond < 0) { remaningShialdInSecond = 0; }
             }
-            lastTimeVariableUpdate = DateTime.Now;
+            lastTimeVariableUpdate = DateTime.UtcNow.ToBinary();
         }
 
     }
     public class PlayerListManager
     {
         private static List<playerData> playersList = new List<playerData>();
-                
+
+        public void ClearPlayerList()
+        {
+            playersList.Clear();
+        }
 
         public void UpdatePlayerInfo(PlayerForDataBase newB)
         {            
@@ -122,7 +127,7 @@ namespace thief2dServer.Models
         public void LoadPlayersAtStart()
         {           
             Theif2dDataDBContext dataBase = new Theif2dDataDBContext();
-            PlayerForDataBase[] allBuildings = dataBase.Buildings.ToArray();
+            PlayerForDataBase[] allBuildings = dataBase.PlayerinDataBase.ToArray();
             for (int i = 0; i < allBuildings.Length; i++)
             {
                 AddPlayerInfo(allBuildings[i]);

@@ -14,6 +14,14 @@ namespace thief2dServer.Models.utilities
             return bb;
         }
 
+        public ShipForDataBase returnDefultShip()
+        {
+            ShipForDataBase newShip = new ShipForDataBase();
+            newShip.CoinInTheShip = 100;            
+
+            return newShip;
+        }
+
 
         /*
         public BuildingForDataBase   ConvertBuildingToDataBaseVersion(Building newB)
@@ -37,11 +45,15 @@ namespace thief2dServer.Models.utilities
         {
             PlayerForSerialize bForD = new PlayerForSerialize();
             bForD.addingCoinRate = newB.addingCoinRate;
+            //bForD.PointTime = newB.PointTime;
+            //bForD.ProductCode = newB.ProductCode;
             bForD.addingElixirRate = newB.addingElixirRate;
             bForD.buildingCode = newB.buildingCode;
             bForD.coin = newB.coin;
             bForD.elixir = newB.elixir;
             bForD.ID = newB.ID;
+            bForD.remaningShialdInSecond = newB.remaningShialdInSecond;
+            bForD.remaningTimeToNextAttack = newB.remaningTimeToNextAttack;
             return bForD;
         }
 

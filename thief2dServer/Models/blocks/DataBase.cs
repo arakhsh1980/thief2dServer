@@ -16,7 +16,18 @@ namespace thief2dServer.Models.blocks
            
             
         }
-        public DbSet<PlayerForDataBase> Buildings { get; set; }
+        public DbSet<PlayerForDataBase> PlayerinDataBase { get; set; }
+
+        public DbSet<AssetForDataBase> AssetinDataBase { get; set; }
+
+        public DbSet<StoryLevel> storylevelsDataBase { get; set; }
+
+        public DbSet<ShipBase> ShipBaseDataBase { get; set; }
+
+
+        public DbSet<ShipForDataBase> AllShips { get; set; }
+
+
     }
 
     public class databaseGameInitial : System.Data.Entity.DropCreateDatabaseIfModelChanges<Theif2dDataDBContext>
@@ -26,4 +37,6 @@ namespace thief2dServer.Models.blocks
             context.SaveChanges();
         }
     }
+
+    
 }
