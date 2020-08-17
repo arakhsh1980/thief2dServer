@@ -63,7 +63,7 @@ namespace thief2dServer.Controllers
         }
 
 
-        /*
+        
         [HttpPost]
         public string LoadSpecificShipData(FormCollection collection)
         {
@@ -103,7 +103,7 @@ namespace thief2dServer.Controllers
             string uu = new JavaScriptSerializer().Serialize(buildingForSerialize);
             return uu;
         }
-        */
+        
 
 
 
