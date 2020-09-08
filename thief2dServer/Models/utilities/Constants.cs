@@ -24,5 +24,7 @@ namespace thief2dServer.Models.utilities
    
         public const int shildDefultTime = 60;
         public const int TimeToNextAttackDefult = 60;
+        public const string AdminCode = "1235813";
+        
     }
 }

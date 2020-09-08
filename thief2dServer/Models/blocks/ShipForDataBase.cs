@@ -85,36 +85,55 @@ namespace thief2dServer.Models.blocks
 
 
         }
+
+        public void SetAccordingTothis(ShipForSerialize thisship)
+        {
+            
+
+        }
+
+        public ShipForSerialize ReturnSerializeVersion()
+        {
+            ShipForSerialize newship = new ShipForSerialize();
+
+
+            return newship;
+        }
     }
+
 
     [Serializable]
     public class ShipForSerialize
     {
+        public ShipForSerialize()
+        {
+            objectsInShip = new long[0];
+            ProducersInShip = new long[0];
+            ProducersNextProductTimePoint = new long[0];
+            AttactingToolsInShip = new long[0];
+            Items = new List<long>();
+            ItemsFromAttac = new long[0];
+        }
         public string OwnerID;
         public long[] objectsInShip;
         public long[] ProducersInShip;
-        public long[] TimeProducersInShip;
         public long[] ProducersNextProductTimePoint;
-        public long[] AttactingToolsInShip;
-        public long[] Items;
+        public long[] AttactingToolsInShip;//for grnade & dwrfs & smallDwrfs and other thing that you bring to attack scineOf home
+        public List<long> Items;
         public long timePointOfNextrequiredUpdate;
         public long timePointOfNextRaidReturn;
         public int raidSycleDurationInMuinte;
         public int raidAvarageIncome;
-        public long PreshopCode;
-        public bool isPreshopProducer;
-        public long ObjectInShopPlace;
+        public int PreshopType;
+        public int PreshopLevel;
+        public bool isShopDone;
         public long TimePointOfLastUpdate;
-        public float addingCoinRate;
-        public float addingElixirRate;
         public int remaningShialdInSecond;
         public int remaningTimeToNextAttack;
-        public int backGroundId;
-        public float PositionOfFirstSnap_x;
-        public float PositionOfFirstSnap_y;
-        public string stringOfPreorderInfo;
+        public int baseShipID;
         public int CoinInTheShip;
-
+        public int CoinFromAttack;
+        public long[] ItemsFromAttac;
 
         public void UpdateShip()
         {

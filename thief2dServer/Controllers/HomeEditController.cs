@@ -36,6 +36,24 @@ namespace thief2dServer.Controllers
             }
         }
 
+        [HttpPost]
+        public string SaveShip(FormCollection collection)
+        {
+            string OwnerID = Request.Form["OwnerID"];
+            string thisShipString = Request.Form["thisShipString"];
+            DualString findedship = dataBase.AllDualStrings.Find(OwnerID);
+           // ShipForSerialize thisShip = new JavaScriptSerializer().Deserialize<ShipForSerialize>(thisShipString);
+            if (findedship == null)
+            {
+                return "shipNotFinded";
+            }           
+                findedship.value = thisShipString;
+                dataBase.Entry(findedship).State = EntityState.Modified;
+                dataBase.SaveChanges();
+            return true.ToString();
+            
+        }
+
         public string UpdateProductCode(string buildst)
         {
             string id = Request.Form["PlayerId"];
@@ -59,6 +77,7 @@ namespace thief2dServer.Controllers
         [HttpPost]
         public string HomeBuyingAssetRequst(FormCollection collection)
         {
+            return true.ToString();
             string id = Request.Form["PlayerId"];
             int idOfBuyingAsset =Int32.Parse( Request.Form["idOfBuyingAsset"]);
             string TypOfBuyingAsset = Request.Form["TypOfBuyingAsset"];
@@ -121,14 +140,14 @@ namespace thief2dServer.Controllers
             }
         }
 
-        [HttpPost]
-        public string StoryRequst(FormCollection collection)
-        {
-            string id = Request.Form["PlayerId"];
-            PlayerForDataBase thisPlayerData = dataBase.PlayerinDataBase.Find(id);
-            StoryLevel storyString = dataBase.storylevelsDataBase.Find(thisPlayerData.StoryDoneLevel + 1);
-            return storyString.levelString;
-        }
+        //[HttpPost]
+        //public string StoryRequst(FormCollection collection)
+        //{
+        //    string id = Request.Form["PlayerId"];
+        //    PlayerForDataBase thisPlayerData = dataBase.PlayerinDataBase.Find(id);
+        //    StoryLevel storyString = dataBase.storylevelsDataBase.Find(thisPlayerData.StoryDoneLevel + 1);
+        //    return storyString.levelString;
+        //}
 
 
 

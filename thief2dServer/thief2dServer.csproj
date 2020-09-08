@@ -147,6 +147,7 @@
     <Compile Include="Controllers\HomeEditController.cs" />
     <Compile Include="Controllers\LoadingController.cs" />
     <Compile Include="Controllers\MakeStoryController.cs" />
+    <Compile Include="Controllers\UpdatingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -211,6 +212,7 @@
     <Folder Include="Views\HomeEdit\" />
     <Folder Include="Views\Loading\" />
     <Folder Include="Views\MakeStory\" />
+    <Folder Include="Views\Updating\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

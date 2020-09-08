@@ -97,5 +97,35 @@ namespace thief2dServer.Models.utilities
             return res;
         }
 
+
+        public static string IntArrayToSrtingWithChar(int[] ar, Char ch)
+        {
+            if (ar.Length < 1)
+            {
+                return "";
+            }
+            string uu = "";
+            uu = ar[0].ToString();
+            for (int i = 1; i < ar.Length; i++)
+            {
+                uu += ch + ar[i].ToString();
+            }
+            return uu;
+        }
+
+        public static int[] StringToIntArrayWithChar(string ar, Char ch)
+        {
+            if (ar.Length < 2) { return null; }
+            string[] splitted = ar.Split(ch);
+            int[] res = new int[splitted.Length];
+            for (int i = 0; i < res.Length; i++)
+            {
+                res[i] = int.Parse(splitted[i]);
+            }
+            return res;
+        }
+
+
+
     }
 }
